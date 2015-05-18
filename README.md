@@ -4,7 +4,7 @@ This is updated source for, "Service-Oriented Design With Ruby And Rails" The or
 
 My intent is to update each chapter as I work through the book. Many thanks to Paul Dix for creating a great book. It's still a great read!
 
-## Gem & Ruby Versions
+## Gem & Ruby Versions (Chapter #1)
 - i18n 0.7.0
 - json 1.8.2
 - minitest 5.6.1

@@ -1,10 +1,10 @@
-h1. Description
+# Description
 
 This is updated source for, "Service-Oriented Design With Ruby And Rails" The original project is located at http://bit.ly/1L2eB3E
 
 My intent is to update each chapter as I work through the book. Many thanks for Paul Dix. This is still a great read!
 
-h2. Gem & Ruby Versions
+## Gem & Ruby Versions
 - i18n 0.7.0
 - json 1.8.2
 - minitest 5.6.1
@@ -33,6 +33,6 @@ h2. Gem & Ruby Versions
 - bundler 1.9.9
 - ruby 2.2.1p85
 
-h1. From Paul Dix:
+# From Paul Dix:
 
 Code examples from the Addison Wesley book "Service Oriented Design in Ruby and Rails" by Paul Dix. For any questions or problems please ask on the "mailing list":http://groups.google.com/group/service-oriented-design-with-ruby.

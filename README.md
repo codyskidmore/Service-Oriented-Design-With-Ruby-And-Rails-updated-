@@ -2,7 +2,7 @@
 
 This is updated source for, "Service-Oriented Design With Ruby And Rails" The original project is located at http://bit.ly/1L2eB3E
 
-My intent is to update each chapter as I work through the book. Many thanks for Paul Dix. This is still a great read!
+My intent is to update each chapter as I work through the book. Many thanks to Paul Dix for creating a great book. It's still a great read!
 
 ## Gem & Ruby Versions
 - i18n 0.7.0

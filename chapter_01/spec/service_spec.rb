@@ -20,6 +20,10 @@ describe "service" do
     User.delete_all
   end
 
+  def get_attributes(json_response)
+    JSON.parse(json_response.body)
+  end
+
   describe "GET on /api/v1/users/:id" do
     before(:each) do
       User.create(
@@ -32,34 +36,35 @@ describe "service" do
     it "should return a user by name" do
       get '/api/v1/users/paul'
       last_response.should be_ok
-      attributes = JSON.parse(last_response.body)["user"]
-      attributes["name"].should == "paul"
+      attributes = get_attributes(last_response)
+      expect(attributes["name"]).to eq "paul"
     end
 
     it "should return a user with an email" do
       get '/api/v1/users/paul'
       last_response.should be_ok
-      attributes = JSON.parse(last_response.body)["user"]
-      attributes["email"].should == "paul@pauldix.net"
+      attributes = get_attributes(last_response)
+      expect(attributes["email"]).to eq "paul@pauldix.net"
     end
 
     it "should not return a user's password" do
       get '/api/v1/users/paul'
       last_response.should be_ok
-      attributes = JSON.parse(last_response.body)["user"]
-      attributes.should_not have_key("password")
+      attributes = get_attributes(last_response)
+      expect(attributes).to_not have_key(:password)
     end
 
     it "should return a user with a bio" do
       get '/api/v1/users/paul'
       last_response.should be_ok
-      attributes = JSON.parse(last_response.body)["user"]
-      attributes["bio"].should == "rubyist"
+      attributes = get_attributes(last_response)
+      expect(attributes["bio"]).to eq "rubyist"
     end
 
     it "should return a 404 for a user that doesn't exist" do
       get '/api/v1/users/foo'
-      last_response.status.should == 404
+      #last_response.status.should == 404
+      expect(last_response.status).to eq 404
     end
   end
 
@@ -72,10 +77,10 @@ describe "service" do
           :bio      => "southern bell"}.to_json
       last_response.should be_ok
       get '/api/v1/users/trotter'
-      attributes = JSON.parse(last_response.body)["user"]
-      attributes["name"].should  == "trotter"
-      attributes["email"].should == "no spam"
-      attributes["bio"].should   == "southern bell"
+      attributes = get_attributes(last_response)
+      expect(attributes["name"]).to eq "trotter"
+      expect(attributes["email"]).to eq "no spam"
+      expect(attributes["bio"]).to eq "southern bell"
     end
   end
 
@@ -90,7 +95,7 @@ describe "service" do
         :bio => "testing freak"}.to_json
       last_response.should be_ok
       get '/api/v1/users/bryan'
-      attributes = JSON.parse(last_response.body)["user"]
+      attributes = get_attributes(last_response)
       attributes["bio"].should == "testing freak"
     end
   end
@@ -121,7 +126,7 @@ describe "service" do
       post '/api/v1/users/josh/sessions', {
         :password => "nyc.rb rules"}.to_json
       last_response.should be_ok
-      attributes = JSON.parse(last_response.body)["user"]
+      attributes = get_attributes(last_response)
       attributes["name"].should == "josh"
     end
 

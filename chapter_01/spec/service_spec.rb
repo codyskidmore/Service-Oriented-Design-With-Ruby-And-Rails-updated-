@@ -35,35 +35,34 @@ describe "service" do
 
     it "should return a user by name" do
       get '/api/v1/users/paul'
-      last_response.should be_ok
+      expect(last_response.status).to eq 200
       attributes = get_attributes(last_response)
       expect(attributes["name"]).to eq "paul"
     end
 
     it "should return a user with an email" do
       get '/api/v1/users/paul'
-      last_response.should be_ok
+      expect(last_response.status).to eq 200
       attributes = get_attributes(last_response)
       expect(attributes["email"]).to eq "paul@pauldix.net"
     end
 
     it "should not return a user's password" do
       get '/api/v1/users/paul'
-      last_response.should be_ok
+      expect(last_response.status).to eq 200
       attributes = get_attributes(last_response)
       expect(attributes).to_not have_key(:password)
     end
 
     it "should return a user with a bio" do
       get '/api/v1/users/paul'
-      last_response.should be_ok
+      expect(last_response.status).to eq 200
       attributes = get_attributes(last_response)
       expect(attributes["bio"]).to eq "rubyist"
     end
 
     it "should return a 404 for a user that doesn't exist" do
       get '/api/v1/users/foo'
-      #last_response.status.should == 404
       expect(last_response.status).to eq 404
     end
   end
@@ -75,7 +74,7 @@ describe "service" do
           :email    => "no spam",
           :password => "whatever",
           :bio      => "southern bell"}.to_json
-      last_response.should be_ok
+      expect(last_response.status).to eq 200
       get '/api/v1/users/trotter'
       attributes = get_attributes(last_response)
       expect(attributes["name"]).to eq "trotter"
@@ -93,10 +92,10 @@ describe "service" do
         :bio => "rspec master")
       put '/api/v1/users/bryan', {
         :bio => "testing freak"}.to_json
-      last_response.should be_ok
+      expect(last_response.status).to eq 200
       get '/api/v1/users/bryan'
       attributes = get_attributes(last_response)
-      attributes["bio"].should == "testing freak"
+      expect(attributes["bio"]).to eq "testing freak"
     end
   end
 
@@ -108,9 +107,9 @@ describe "service" do
         :password => "whatever",
         :bio      => "williamsburg hipster")
       delete '/api/v1/users/francis'
-      last_response.should be_ok
+      expect(last_response.status).to eq 200
       get '/api/v1/users/francis'
-      last_response.status.should == 404
+      expect(last_response.status).to eq 404
     end
   end
 
@@ -125,15 +124,15 @@ describe "service" do
     it "should return the user object on valid credentials" do
       post '/api/v1/users/josh/sessions', {
         :password => "nyc.rb rules"}.to_json
-      last_response.should be_ok
+      expect(last_response.status).to eq 200
       attributes = get_attributes(last_response)
-      attributes["name"].should == "josh"
+      expect(attributes["name"]).to eq "josh"
     end
 
     it "should fail on invalid credentials" do
       post '/api/v1/users/josh/sessions', {
         :password => "wrong"}.to_json
-      last_response.status.should == 400
+      expect(last_response.status).to eq 400
     end
   end
 end

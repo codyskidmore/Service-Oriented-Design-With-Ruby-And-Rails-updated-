@@ -42,6 +42,7 @@ class User
   end
 
   def self.destroy(name)
+    pp "#{base_uri}/api/v1/users/#{name}"
     response = Typhoeus::Request.delete("#{base_uri}/api/v1/users/#{name}")
     response.success? # response.code == 200
   end
